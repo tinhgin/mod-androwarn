@@ -26,3 +26,5 @@ def ClassifySensitiveMethod(ListMethod):
                 tmp.type = type
                 source.append(tmp)
     return sink, source
+sink, source = ClassifySensitiveMethod(["Landroid/app/Activity;->startActivity(Landroid/content/Intent;)V", "123"])
+print sink[0].method
