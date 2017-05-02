@@ -1,6 +1,8 @@
 #!/usr/bin/env python
 
-from MethodClassifed import *
+class MethodClassifed:
+    method = ''
+    type = ''
 
 def ClassifySensitiveMethod(ListMethod):
     sink = []
