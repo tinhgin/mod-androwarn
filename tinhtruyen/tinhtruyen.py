@@ -6,7 +6,10 @@ from gintool import getfilename
 
 class MethodItem:
     nmethod=""
-    methods=[]
+    submethods=[]
+    def __init__(self):
+        self.nmethod=""
+        self.submethods=[]
 
 
 def get_endsplitstring(x):
@@ -18,10 +21,9 @@ def get_method_invoke():
     for i in getfilename(cwd+"/methoddump"):
         with open(i, "r") as readfile:
             tmp = MethodItem()
-            tmp.methods = []
             tmp.nmethod=i
             for line in readfile:
                 if invoke.match(line.strip()):
-                    tmp.methods.append(get_endsplitstring(line))
+                    tmp.submethods.append(get_endsplitstring(line))
         k.append(tmp)
     return k
