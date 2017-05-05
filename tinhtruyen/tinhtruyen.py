@@ -18,6 +18,7 @@ def get_method_invoke():
     for i in getfilename(cwd+"/methoddump"):
         with open(i, "r") as readfile:
             tmp = MethodItem()
+            tmp.methods = []
             tmp.nmethod=i
             for line in readfile:
                 if invoke.match(line.strip()):
