@@ -5,8 +5,6 @@ cwd = os.getcwd()
 from gintool import getfilename
 
 class MethodItem:
-    nmethod=""
-    submethods=[]
     def __init__(self):
         self.nmethod=""
         self.submethods=[]
