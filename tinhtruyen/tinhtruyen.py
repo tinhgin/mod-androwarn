@@ -54,6 +54,9 @@ def ClassifySensitiveMethod(ListMethod):
             filesource.seek(0,0)
         ListMethodClassified.append(tmp)
     return ListMethodClassified
-k = get_method_invoke()
-L = ClassifySensitiveMethod(k)
-t = "1"
+def getDiffMethod(x, nClass, nMethod, nDiffMethod):
+    structural_analysis_results = x.tainted_packages.search_methods(nClass, nMethod, ".")
+    for result in xrange(len(structural_analysis_results)):
+        method = structural_analysis_results[result].get_method()
+        if method.get_name() == nDiffMethod :
+            return method, structural_analysis_results[result].get_idx()
